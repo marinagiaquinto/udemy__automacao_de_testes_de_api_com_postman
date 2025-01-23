@@ -1,0 +1,756 @@
+{
+	"info": {
+		"_postman_id": "ff285ae5-277a-4c26-95ea-54e362b303e5",
+		"name": "API Hunter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28497057",
+		"_collection_link": "https://dark-escape-507249.postman.co/workspace/Curso-Postman---API-Hunter~c2e42d63-24d7-45d3-8a04-65b4436769f2/collection/28497057-ff285ae5-277a-4c26-95ea-54e362b303e5?action=share&source=collection_link&creator=28497057"
+	},
+	"item": [
+		{
+			"name": "Leads",
+			"item": [
+				{
+					"name": "Criar novo lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"//Validação das regras de negócio (cenários de sucesso e erro)\r",
+									"if (pm.info.iteration >= 0  && pm.info.iteration <= 7){\r",
+									"\r",
+									"    pm.test(\"Successful POST request\", function () {\r",
+									"        pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Status code name has string\", function () {\r",
+									"        pm.response.to.have.status(\"Created\");\r",
+									"    });\r",
+									"\r",
+									"    //Extração do Id a ser usado nas requisições GET, PUT e DELETED\r",
+									"    pm.collectionVariables.set('idLead', jsonData.data.id)\r",
+									"\r",
+									"} else if (pm.info.iteration >= 8 && pm.info.iteration <= 11){\r",
+									"\r",
+									"    pm.test(\"Status code is 422\", function () {\r",
+									"        pm.response.to.have.status(422);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Mensagem de email inválido\", function () {\r",
+									"        pm.expect(jsonData.errors[0].details).to.eql(\"A valid email address is required.\");\r",
+									"    });\r",
+									"\r",
+									"} else if (pm.info.iteration == 12) {\r",
+									"\r",
+									"    pm.test(\"Status code is 422\", function () {\r",
+									"        pm.response.to.have.status(422);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Mensagem de campos obrigatórios na ausência de email\", function () {\r",
+									"        pm.expect(jsonData.errors[0].details).to.eql(\"First name is required when there is no email address.\");\r",
+									"    });\r",
+									"\r",
+									"} else if (pm.info.iteration == 13) {\r",
+									"\r",
+									"    pm.test(\"Status code is 422\", function () {\r",
+									"        pm.response.to.have.status(422);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Mensagem de campos obrigatórios na ausência de email\", function () {\r",
+									"        pm.expect(jsonData.errors[0].details).to.eql(\"Last name is required when there is no email address.\");\r",
+									"    });\r",
+									"\r",
+									"} else if (pm.info.iteration == 14) {\r",
+									"\r",
+									"    pm.test(\"Status code is 422\", function () {\r",
+									"        pm.response.to.have.status(422);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Mensagem de campos obrigatórios na ausência de email\", function () {\r",
+									"        pm.expect(jsonData.errors[0].details).to.eql(\"Website or company is required when there is no email address.\");\r",
+									"    });\r",
+									"\r",
+									"}  else if (pm.info.iteration == 15 || pm.info.iteration == 16) {\r",
+									"\r",
+									"    pm.test(\"Status code is 422\", function () {\r",
+									"        pm.response.to.have.status(422);\r",
+									"    });\r",
+									"\r",
+									"    pm.test(\"Score inválido\", function () {\r",
+									"        pm.expect(jsonData.errors[0].details).to.eql(\"The confidence score must range between 0 and 100.\");\r",
+									"    });\r",
+									"\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									"//Tempo de execução < 2 seg\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//Finalizando a chamada aos outros endpoints a partir do início dos cenários de erro a criação.\r",
+									"if ( pm.info.iteration >= 8 && pm.info.iteration <= 16) {\r",
+									"  pm.execution.setNextRequest(null)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.iterationData.get(\"email_db\")\r",
+									"pm.iterationData.get(\"first_name_db\")\r",
+									"pm.iterationData.get(\"last_name_db\")\r",
+									"pm.iterationData.get(\"position_db\")\r",
+									"pm.iterationData.get(\"company_db\")\r",
+									"pm.iterationData.get(\"company_industry_db\")\r",
+									"pm.iterationData.get(\"company_size_db\")\r",
+									"pm.iterationData.get(\"confidence_score_db\")\r",
+									"pm.iterationData.get(\"website_db\")\r",
+									"pm.iterationData.get(\"customer_id_db\")\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{email_db}}\",\r\n  \"first_name\": \"{{first_name_db}}\",\r\n  \"last_name\":\"{{last_name_db}}\",\r\n  \"position\": \"{{position_db}}\",\r\n  \"company\": \"{{company_db}}\",\r\n  \"company_industry\": \"{{company_industry_db}}\",\r\n  \"company_size\": \"{{company_size_db}}\",\r\n  \"confidence_score\":\"{{confidence_score_db}}\",\r\n  \"website\": \"{{website_db}}\",\r\n  \"custom_attributes\": {\r\n    \"customer_id\": \"{{customer_id_db}}\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leads cadastrados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Status code: 200\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//String 'OK' no status code\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Tempo de execução < 2 seg\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leads específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Status code: 200\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//String 'OK' no status code\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Tempo de execução < 2 seg\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads/{{idLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads",
+								"{{idLead}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Status code: 204\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"//String 'No Content' no response code\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"edicao@gmail.com\",\r\n  \"first_name\": \"Primeiro nome edição\",\r\n  \"last_name\":\"Segundo nome edição\",\r\n  \"position\": \"Posição edição\",\r\n  \"company\": \"Companhia edição\",\r\n  \"company_industry\": \"company_industry edição\",\r\n  \"company_size\": \"tamanho edição\",\r\n  \"confidence_score\":\"0\",\r\n  \"website\": \"wesitedicao.com\",\r\n  \"custom_attributes\": {\r\n    \"customer_id\": \"id edição\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads/{{idLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads",
+								"{{idLead}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Status code: 204\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"//String 'No Content' no response code\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads/{{idLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads",
+								"{{idLead}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lista de Leads",
+			"item": [
+				{
+					"name": "Criar nova lista de lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responsePostList = pm.response.json()\r",
+									"\r",
+									"if ( pm.response.code == 201){\r",
+									"    pm.collectionVariables.set('idListaLead', responsePostList.data.id)\r",
+									"    pm.collectionVariables.set('nomeCriacao_listaLead', responsePostList.data.name)\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.iterationData.get(\"nomeLista\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{nomeLista}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads_lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todas listas de leads cadastradas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseListLead = pm.response.json()\r",
+									"\r",
+									"var qtd = responseListLead.meta.total\r",
+									"var nomeLista = responseListLead.data.leads_lists[0].name\r",
+									"\r",
+									"pm.test(\"Lista de lead\", function () {\r",
+									"    if( qtd == 2 && nomeLista == pm.collectionVariables.get('nomeCriacao_listaLead')){\r",
+									"        console.log('Sucesso')\r",
+									"    } else {\r",
+									"        console.log(`${nomeLista}`)\r",
+									"    }\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads_lists",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista específica de lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseidLead = pm.response.json()\r",
+									"\r",
+									"if(responseidLead.data.name == pm.collectionVariables.get('nomeLista')){\r",
+									"    console.log('Sucesso')\r",
+									"}else{\r",
+									"    console.log(`${responseidLead.data.name}`)\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads_lists/{{idListaLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads_lists",
+								"{{idListaLead}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar lista de lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('qtdNomeLista_listaLead', pm.info.iteration)\r",
+									"console.log(pm.collectionVariables.get('qtdNomeLista'))"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Edição {{qtdNomeLista}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads_lists/{{idListaLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads_lists",
+								"{{idListaLead}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir lista de lead",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.hunter.io/v2/leads_lists/{{idListaLead}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"hunter",
+								"io"
+							],
+							"path": [
+								"v2",
+								"leads_lists",
+								"{{idListaLead}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "api_key",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "d26fca18cf272ffe544a8f1e5cd9a7370eeecdec",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idLead",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "idListaLead",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "nomeCriacao_listaLead",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "qtdNomeLista_listaLead",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,25 @@
+name: Criação, visualização, edição e deleção da API Hunter.io
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+        - name: "Checkout code"
+          uses: actions/checkout@v4
+
+        - name: "Node"
+          uses: actions/setup-node@v4
+          with: 
+            node-version: "18"
+
+        - name: "Install newman"
+          run: "npm install -g newman"
+
+        - name: "Install newman reporter"
+          run: "npm install -g newman-reporter-html"
+
+        - name: Run test
+          run: newman run -d lead_data.csv -d listaLead_data.csv Hunter.postman_collection.json
