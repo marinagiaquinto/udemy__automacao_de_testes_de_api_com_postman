@@ -22,4 +22,4 @@ jobs:
           run: "npm install -g newman-reporter-html"
 
         - name: Run test
-          run: newman run -d lead_data.csv -d listaLead_data.csv Hunter.postman_collection.json
+          run: newman run -d lead_data.csv -d listaLead_data.csv hunter_postman_collection.json
