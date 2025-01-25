@@ -159,27 +159,12 @@
 					"response": []
 				},
 				{
-					"name": "Leads cadastrados",
+					"name": "Leads",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Status code: 200\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"//String 'OK' no status code\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"OK\");\r",
-									"});\r",
-									"\r",
-									"//Tempo de execução < 2 seg\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-									"});\r",
-									"\r",
 									""
 								],
 								"type": "text/javascript",
@@ -197,7 +182,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://api.hunter.io/v2/leads",
+							"raw": "https://api.hunter.io/v2/leads/{{idLead}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -206,7 +191,8 @@
 							],
 							"path": [
 								"v2",
-								"leads"
+								"leads",
+								"{{idLead}}"
 							]
 						}
 					},
@@ -219,20 +205,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Status code: 200\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"//String 'OK' no status code\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"OK\");\r",
-									"});\r",
-									"\r",
-									"//Tempo de execução < 2 seg\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript",
@@ -273,15 +245,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Status code: 204\r",
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});\r",
-									"\r",
-									"//String 'No Content' no response code\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"No Content\");\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -330,15 +294,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Status code: 204\r",
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});\r",
-									"\r",
-									"//String 'No Content' no response code\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"No Content\");\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -470,20 +426,7 @@
 									"    } else {\r",
 									"        console.log(`${nomeLista}`)\r",
 									"    }\r",
-									"})\r",
-									"\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"OK\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
-									"});"
+									"})"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -528,20 +471,7 @@
 									"    console.log('Sucesso')\r",
 									"}else{\r",
 									"    console.log(`${responseidLead.data.name}`)\r",
-									"}\r",
-									"\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"OK\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(11000);\r",
-									"});"
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -581,13 +511,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"No Content\");\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -647,13 +571,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code name has string\", function () {\r",
-									"    pm.response.to.have.status(\"No Content\");\r",
-									"});"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -693,6 +611,11 @@
 		"type": "apikey",
 		"apikey": [
 			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
 				"key": "key",
 				"value": "api_key",
 				"type": "string"
@@ -700,11 +623,6 @@
 			{
 				"key": "in",
 				"value": "query",
-				"type": "string"
-			},
-			{
-				"key": "value",
-				"value": "d26fca18cf272ffe544a8f1e5cd9a7370eeecdec",
 				"type": "string"
 			}
 		]
@@ -726,7 +644,34 @@
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
-					""
+					"if( pm.request.method == 'GET'){\r",
+					"\r",
+					"    //Status code: 200\r",
+					"    pm.test(\"Status code is 200\", function () {\r",
+					"        pm.response.to.have.status(200);\r",
+					"    });\r",
+					"\r",
+					"    //String 'OK' no status code\r",
+					"    pm.test(\"Status code name has string\", function () {\r",
+					"        pm.response.to.have.status(\"OK\");\r",
+					"    });\r",
+					"\r",
+					"    //Tempo de execução < 2 seg\r",
+					"    pm.test(\"Response time is less than 200ms\", function () {\r",
+					"        pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+					"    });\r",
+					"\r",
+					"}else if(pm.request.method == 'PUT'|| pm.request.method == 'DELETE'){\r",
+					"    //Status code: 204\r",
+					"    pm.test(\"Status code is 204\", function () {\r",
+					"        pm.response.to.have.status(204);\r",
+					"    });\r",
+					"\r",
+					"    //String 'No Content' no response code\r",
+					"    pm.test(\"Status code name has string\", function () {\r",
+					"        pm.response.to.have.status(\"No Content\");\r",
+					"    });\r",
+					"}"
 				]
 			}
 		}
