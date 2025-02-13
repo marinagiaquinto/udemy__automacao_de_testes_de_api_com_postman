@@ -29,7 +29,7 @@ Obs: A criação de um ambiente não altera as coleções existentes no postman,
 Se sobrepõe à variável de coleção. 
 É sobreposta pela variável global e local.
 
-![Variável de ambiente](/readme_imagens/variavel_ambiente.png)
+![Variável de ambiente](/readme_imagens/variavel_ambiente.png)  
 
 
 
@@ -39,7 +39,7 @@ Coleção > edit > variables
 Pode ser acessada em todas as requisições da coleção. 
 É sobreposta pela variável global, de ambiente e local.
 
-![Variável de coleção](/readme_imagens/variavel_colecao.png)
+![Variável de coleção](/readme_imagens/variavel_colecao.png)  
 
 
 
@@ -63,18 +63,18 @@ Também no pré-script, se define as variáveis de dados, que permitem a correç
 
 Para utilizar o valor das variáveis, setar o valor entre {{ }}
 
-![Variáveis](/readme_imagens/{{}}.png)
+![Variáveis](/readme_imagens/{{}}.png)  
 
 
 
 
 ## 3. Scripts
 
-Documentação: [“Write scripts in Postman ”](https://learning.postman.com/docs/tests-and-scripts/write-scripts/intro-to-scripts/)
+Documentação: [“Write scripts in Postman ”](https://learning.postman.com/docs/tests-and-scripts/write-scripts/intro-to-scripts/)  
 
 O postman suporta a linguagem JavaScript. É possível escrever novos scripts através do JavaScript e/ou utilizar os scripts pré-formulados pelo postman em Snippets. 
 
-![script](/readme_imagens/script.png)
+![script](/readme_imagens/script.png)  
 
 ### 3.1 Ordem de execução
 Os scripts podem ser executados através das coleções e/ou  pastas e/ou requisições. 
@@ -96,7 +96,7 @@ Os scripts podem ser executados através das coleções e/ou  pastas e/ou requis
 
 
 #### Ex:
-![Hierarquia](/readme_imagens/hierarquia.png)
+![Hierarquia](/readme_imagens/hierarquia.png)  
 
 ### 3.2 Scripts em coleções: 
 colletion > … > edit > Scripts  
@@ -162,11 +162,11 @@ Valida requisições. Para isso, utiliza das demais funções: expect, response 
 
 
 
-![exec_teste](/readme_imagens/exec_teste.png)
+![exec_teste](/readme_imagens/exec_teste.png)  
 
 ## 4. Como criar documentações  
 
-![doc_saveResponse](/readme_imagens/doc_saveResponse.png)
+![doc_saveResponse](/readme_imagens/doc_saveResponse.png)  
 
 
 ### 4.1 Documentação da API 
@@ -187,7 +187,7 @@ O monitor é unico para o gerenciamento das requisições escolhidas para execu�
 Collection > … > Run collection > Functional > Schedule runs
 
 
-![monitor](/readme_imagens/monitor.png)
+![monitor](/readme_imagens/monitor.png)  
 
 ## 6. Ordem de execução entre as requests
 
@@ -212,13 +212,14 @@ O postman suporta arquivos CSV e JSON. As variáveis de dados podem ser usadas t
 1º Criar direto na requisição e/ou script a variável de dados: {{nome_da_variavel_1}}
 Não é necessário que a variável entre como uma variável de coleção ou local.
 
-![body_variáveis](/readme_imagens/body.png)
+![body_variáveis](/readme_imagens/body.png)  
 
 2º Criar em pré-script um script com as variáveis utilizadas para que o postman possa reconhecer as colunas do arquivo de dados. 
 
 	pm.iterationData.get(‘nome_da_variavel_1’)
 
-![variavel_data](/readme_imagens/variavel_data.png)
+![variavel_data](/readme_imagens/variavel_data.png)  
+
 3º Criar um arquivo .csv ou .json utilizando o nome das variáveis criadas. 
 Como apresentado a seguir, isso pode ser feito em algum arquivo de edição - bloco de notas, vs code, etc… - ou através do próprio Gheets.
 
@@ -228,7 +229,7 @@ Collection> … > Run collection > Functional > Run manually ou Schedule runs > 
 
 5º O número de iterações deve passar automaticamente para a mesma quantidade de dados do arquivo. 
 
-![exec_monitor](/readme_imagens/exec_monitor.png)
+![exec_monitor](/readme_imagens/exec_monitor.png)  
 
 
 ATENÇÃO: o nome das colunas no arquivo de dados, no pré-script e nas variáveis da requisição precisam ser iguais.
@@ -238,18 +239,18 @@ ATENÇÃO: o nome das colunas no arquivo de dados, no pré-script e nas variáve
 
 Ex formato de um arquivo CSV:
 
-![csv](/readme_imagens/csv.png)
+![csv](/readme_imagens/csv.png)  
 
 Ex de criação do CSV com Gheets:
 
-![baixar_csv](/readme_imagens/baixar_csv.png)
+![baixar_csv](/readme_imagens/baixar_csv.png)  
 
 
 
 ### JSON
 
 Ex formato de um arquivo JSON:  
-![json](/readme_imagens/json.png)
+![json](/readme_imagens/json.png)  
 
 
 ## 8. Newman 
@@ -331,7 +332,7 @@ Extraia as coleções, arquivos de dados e variáveis de ambiente do Postman;
 Envie para o repositório remoto os arquivos extraídos;
 Crie o arquivo de CI.
 
-![yalm](/readme_imagens/yalm.png)
+![yalm](/readme_imagens/yalm.png)  
 
 
 ### 9.2 Execução da pipeline a cada alteração no postman
