@@ -29,6 +29,8 @@ Obs: A criação de um ambiente não altera as coleções existentes no postman,
 Se sobrepõe à variável de coleção. 
 É sobreposta pela variável global e local.
 
+![Variável de ambiente](/readme_imagens/variavel_ambiente.png)
+
 
 
 ### 2.3 Variável de Coleção 
@@ -36,6 +38,8 @@ Se sobrepõe à variável de coleção.
 Coleção > edit > variables
 Pode ser acessada em todas as requisições da coleção. 
 É sobreposta pela variável global, de ambiente e local.
+
+![Variável de coleção](/readme_imagens/variavel_colecao.png)
 
 
 
@@ -59,55 +63,59 @@ Também no pré-script, se define as variáveis de dados, que permitem a correç
 
 Para utilizar o valor das variáveis, setar o valor entre {{ }}
 
+![Variáveis](/readme_imagens/{{}}.png)
+
 
 
 
 ## 3. Scripts
 
-### 3.1 Documentação: write scripts in Postman 
-
 O postman suporta a linguagem JavaScript. É possível escrever novos scripts através do JavaScript e/ou utilizar os scripts pré-formulados pelo postman em Snippets. 
 
-### 3.2 Ordem de execução
+![script](/readme_imagens/script.png)
+
+### 3.1 Ordem de execução
 Os scripts podem ser executados através das coleções e/ou  pastas e/ou requisições. 
 
-1º Script - Pré- request  
-	- 1.1º Pré- request - Colletion  
-    - 1.2º Pré- request - Folder  
-	- 1.3º Pré- request - Request  
 
-2º Request
+#### 1º Script - Pré- request  
+- 1.1º Pré- request - Colletion  
+- 1.2º Pré- request - Folder  
+- 1.3º Pré- request - Request  
 
-3º Response
+#### 2º Request
 
-4º Script - Post-response  
-	- 4.1º Post-response - Colletion  
-    - 4.2º Post-response- Folder  
-	- 4.3º Post-response - Request  
+#### 3º Response
+
+#### 4º Script - Post-response  
+- 4.1º Post-response - Colletion  
+- 4.2º Post-response- Folder  
+- 4.3º Post-response - Request  
 
 
-### 3.3 Scripts em coleções: 
+#### Ex:
+![Hierarquia](/readme_imagens/hierarquia.png)
+
+### 3.2 Scripts em coleções: 
 colletion > … > edit > Scripts  
 	O script será executado antes (pré-request) ou depois (Post-response) de cada
  requisição da coleção
 
 
-#### 3.3.1 Scripts em pastas: 
+#### 3.2.1 Scripts em pastas: 
 
-	colletion > pasta > … > edit > Scripts
-	O script será executado antes (pré-request) ou depois (Post-response) de cada requisição da pasta. Ou seja, despreza as requisições existentes na coleção que não estão na pasta em que adicionou o script. 
+colletion > pasta > … > edit > Scripts
+O script será executado antes (pré-request) ou depois (Post-response) de cada requisição da pasta. Ou seja, despreza as requisições existentes na coleção que não estão na pasta em que adicionou o script. 
 
-#### 3.3.2 Scripts em requests:  
+#### 3.2.2 Scripts em requests:  
 
-	colletion > pasta > request > Scripts
-	O script será executado antes (pré-request) ou depois (Post-response) da requisição em questão.
-
-
-
-#### 3.3.3 Pré-requests e Tests
+colletion > pasta > request > Scripts
+O script será executado antes (pré-request) ou depois (Post-response) da requisição em questão.
 
 
-Sintax Postman
+
+#### 3.2.3 Pré-requests e Tests - sintax Postman
+
 
 `pm`: Objeto que guarda informações da requisição/response;
 
@@ -148,12 +156,16 @@ Valida requisições. Para isso, utiliza das demais funções: expect, response 
 
 - `pm.response.method`: Obtém o método da requisição 
 
-- `pm.response.to.be`: Conjunto de asserts pré definidos para testes; 
+- `pm.response.to.be`: Conjunto de asserts pré definidos para testes;     
 
 
 
+![exec_teste](/readme_imagens/exec_teste.png)
 
-## 4. Como criar documentações
+## 4. Como criar documentações  
+
+![doc_saveResponse](/readme_imagens/doc_saveResponse.png)
+
 
 ### 4.1 Documentação da API 
 Collection > … > View documentation ou Publish Docs
@@ -173,7 +185,7 @@ O monitor é unico para o gerenciamento das requisições escolhidas para execu�
 Collection > … > Run collection > Functional > Schedule runs
 
 
-
+![monitor](/readme_imagens/monitor.png)
 
 ## 6. Ordem de execução entre as requests
 
@@ -198,11 +210,13 @@ O postman suporta arquivos CSV e JSON. As variáveis de dados podem ser usadas t
 1º Criar direto na requisição e/ou script a variável de dados: {{nome_da_variavel_1}}
 Não é necessário que a variável entre como uma variável de coleção ou local.
 
+![body_variáveis](/readme_imagens/body.png)
+
 2º Criar em pré-script um script com as variáveis utilizadas para que o postman possa reconhecer as colunas do arquivo de dados. 
 
 	pm.iterationData.get(‘nome_da_variavel_1’)
 
-
+![variavel_data](/readme_imagens/variavel_data.png)
 3º Criar um arquivo .csv ou .json utilizando o nome das variáveis criadas. 
 Como apresentado a seguir, isso pode ser feito em algum arquivo de edição - bloco de notas, vs code, etc… - ou através do próprio Gheets.
 
@@ -212,6 +226,7 @@ Collection> … > Run collection > Functional > Run manually ou Schedule runs > 
 
 5º O número de iterações deve passar automaticamente para a mesma quantidade de dados do arquivo. 
 
+![exec_monitor](/readme_imagens/exec_monitor.png)
 
 
 ATENÇÃO: o nome das colunas no arquivo de dados, no pré-script e nas variáveis da requisição precisam ser iguais.
@@ -219,17 +234,20 @@ ATENÇÃO: o nome das colunas no arquivo de dados, no pré-script e nas variáve
 
 ### CSV
 
-Ex criação com arquivo de edição:
+Ex formato de um arquivo CSV:
 
+![csv](/readme_imagens/csv.png)
 
+Ex de criação do CSV com Gheets:
 
-Ex de criação do CSV com Gheets
-
+![baixar_csv](/readme_imagens/baixar_csv.png)
 
 
 
 ### JSON
 
+Ex formato de um arquivo JSON:
+![json](/readme_imagens/json.png)
 
 
 ## 8. Newman 
