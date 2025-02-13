@@ -70,6 +70,8 @@ Para utilizar o valor das variáveis, setar o valor entre {{ }}
 
 ## 3. Scripts
 
+Documentação: [“Write scripts in Postman ”](https://learning.postman.com/docs/tests-and-scripts/write-scripts/intro-to-scripts/)
+
 O postman suporta a linguagem JavaScript. É possível escrever novos scripts através do JavaScript e/ou utilizar os scripts pré-formulados pelo postman em Snippets. 
 
 ![script](/readme_imagens/script.png)
@@ -329,6 +331,7 @@ Extraia as coleções, arquivos de dados e variáveis de ambiente do Postman;
 Envie para o repositório remoto os arquivos extraídos;
 Crie o arquivo de CI.
 
+![yalm](/readme_imagens/yalm.png)
 
 
 ### 9.2 Execução da pipeline a cada alteração no postman
