@@ -248,7 +248,7 @@ Ex de criação do CSV com Gheets:
 
 ### JSON
 
-Ex formato de um arquivo JSON:
+Ex formato de um arquivo JSON:  
 ![json](/readme_imagens/json.png)
 
 
