@@ -1,0 +1,18 @@
+Regras,Cenário ,email_db,first_name_db,last_name_db,position_db,company_db,company_industry_db,company_size_db,confidence_score_db,website_db,customer_id_db
+Deve ser possível criar com sucesso um lead com todos os dados,Sucesso (dados completos) - iteração 0,email_1@hotmail.com,Levisk,Borges,Dona,Mcs Brasil,Mcs Brasil,5.000 a 10.000,10,mcsbrasil.com,1
+Deve ser possível criar um lead apenas com email,Sucesso - iteração 1,email_2@gmail.com,,,,,,,,,
+"Deve ser possível criar um lead apenas com 1º, 2º nome e companhia",Sucesso - iteração 2,,Sofia,Camargo,,Mcs Brasil,,,,,
+"Deve ser possível criar um lead apenas com 1º, 2º nome e website",Sucesso - iteração 3,,Sofia,Camargo,,,,,,mcsbrasil.com,
+"Não deve ser possível criar contato com mesmos dados de nome, sobrenome e companhia",Sucesso (1º nome diferente) - iteração 4,,Sofia_2,Camargo,,Mcs Brasil,,,0,,
+//,Sucesso (2º nome diferente) - iteração 5,,Sofia,Camargo_2,,Mcs Brasil,,,100,,
+//,Sucesso (companhia diferente) - iteração 6,,Sofia,Camargo,,Mcs_Brasil_2,,,,,
+//,Sucesso (website diferente) - iteração 7,,Sofia,Camargo,,,,,,mcsbrasil2.com,
+"""A valid email address is required.""",Erro (Email inválido - sem @) - iteração 10,invalidouol.com,,,,,,,,,
+//,Erro (Email inválido - sem prefixo) - iteração 11,@uol.com,,,,,,,,,
+//,Erro (Email inválido - sem .com) - iteração 12,invalido@uol,Kroy,Ferreira,,Mcs Brasil,,,,,
+//,Erro (Email inválido - sem o provedor) - iteração 13,invalido@.com,Lili,Silva,,Mcs Brasil,,,,,
+"""First name is required when there is no email address.""",Erro (sem email e 1º nome)  - iteração 14,,,Borges,,,,,,mcsbrasil.com,
+"""Last name is required when there is no email address.""",Erro (sem email e 2º nome)  - iteração 15,,Maria,,,,,,,mcsbrasil.com,
+"""Website or company is required when there is no email address.""","Erro (sem email, companhia e website)  - iteração 16",,Maria,Borges,,,,,,,
+//, Erro (score > 100) - iteração 17,,Sidi,Neto,,Mcs Brasil,,,101,,
+//, Erro (score < 0) - iteração 18,,Japa,Monteiro,,Mcs Brasil,,,-1,,
