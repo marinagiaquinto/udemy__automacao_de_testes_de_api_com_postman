@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Leads",
+			"name": "crud_lead",
 			"item": [
 				{
 					"name": "Criar novo lead",
@@ -330,7 +330,7 @@
 			]
 		},
 		{
-			"name": "Lista de Leads",
+			"name": "crud_lista_de_lead",
 			"item": [
 				{
 					"name": "Criar nova lista de lead",

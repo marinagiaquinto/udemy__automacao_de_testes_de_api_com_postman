@@ -21,5 +21,8 @@ jobs:
         - name: "Install newman reporter"
           run: "npm install -g newman-reporter-html"
 
-        - name: Run test
-          run: newman run -d lead_data.csv -d lead_listaLead.csv API_hunter.postman_collection.json --env-var "token=$TOKEN_HUNTER"
+        - name: Run test Lead
+          run: newman run -d lead_data.csv API_hunter.postman_collection.json --env-var "token=$TOKEN_HUNTER" --folder crud_lead
+
+        - name: Run test List Lead
+          run: newman run -d list_lead_data.csv API_Hunter.postman_collection.json --env-var "token=$TOKEN_HUNTER" --folder crud_lista_de_lead
